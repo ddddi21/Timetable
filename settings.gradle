@@ -1,0 +1,5 @@
+include ':feature-auth'
+include ':app'
+include ':common'
+include ':feature-splash'
+include ':core-db'

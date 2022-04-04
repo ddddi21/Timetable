@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Auth.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="errorEnabled">true</item>
+        <item name="android:layout_marginStart">@dimen/email_input_edit_text_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/email_input_edit_text_margin_end</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/lightGrey</item>
+        <item name="android:textColorHint">@color/lightGrey</item>
+        <item name="hintTextColor">@color/lightGrey</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@color/endIconModeDarkGrey</item>
+    </style>
+
+    <style name="Auth.TextInputEditText" parent="Widget.Design.TextInputLayout">
+        <item name="android:maxLines">1</item>
+        <item name="singleLine">true</item>
+        <item name="android:layout_width">@dimen/email_input_edit_text_width</item>
+        <item name="android:layout_height">@dimen/email_input_edit_text_height</item>
+        <item name="android:layout_marginBottom">@dimen/email_input_edit_text_margin_bottom</item>
+        <item name="android:layout_marginTop">@dimen/email_input_edit_text_margin_top</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColorHint">@color/lightGrey</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Auth.EnterButton" parent="Widget.MaterialComponents.Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="cornerRadius">@dimen/auth_enter_button_radius</item>
+        <item name="strokeColor">@color/auth_enter_button_corner_color</item>
+        <item name="strokeWidth">@dimen/dimen_2dp</item>
+        <item name="android:backgroundTint">@color/auth_enter_button_color</item>
+        <item name="android:textColor">@color/auth_enter_button_text_color</item>
+    </style>
+</resources>

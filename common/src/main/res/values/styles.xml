@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="android:colorControlActivated">@color/blueAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Collection.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="backgroundColor">@color/white</item>
+        <item name="navigationIcon">@drawable/ic_search</item>
+        <item name="titleCentered">true</item>
+        <item name="titleTextColor">@color/black</item>
+    </style>
+
+    <style name="NavigateBack.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="backgroundColor">@color/white</item>
+        <item name="navigationIcon">@drawable/ic_navigate_back_arrow</item>
+        <item name="titleCentered">true</item>
+        <item name="titleTextColor">@color/black</item>
+    </style>
+
+    <style name="ChipTextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+</resources>

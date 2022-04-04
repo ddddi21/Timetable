@@ -1,0 +1,161 @@
+buildscript {
+    ext {
+        // App version
+        versionName = '1.0.0'
+        versionCode = 1
+
+        // SDK and tools
+        compileSdkVersion = 28
+        minSdkVersion = 21
+        targetSdkVersion = 28
+
+        kotlinVersion = '1.5.0'
+
+        appcompatVersion = "1.3.0"
+
+        roomVersion = '2.3.0'
+
+        supportVersion = '1.0.0'
+        constraintVersion = '2.0.4'
+
+        rxJavaVersion = '2.2.7'
+        rxAndroidVersion = '2.1.0'
+
+        daggerVersion = '2.38.1'
+        javaxInjectVersion = '1'
+
+        ktlintVersion = "0.40.0"
+
+        architectureComponentVersion = '2.4.0-alpha02'
+
+        retrofitVersion = '2.9.0'
+        okhttpVersion = '3.8.0'
+        gsonVersion = '2.8.2'
+
+        zXingVersion = '3.5.0'
+
+        navControllerVersion = '2.3.5'
+
+        junitVersion = '4.12'
+        mockitoVersion = '2.23.0'
+        robolectricVersion = '4.1'
+
+        fragmentVersion = '1.3.3'
+
+        materialVersion = '1.4.0'
+
+        viewPager2Version = '1.0.0'
+
+        swipeRefreshLayoutVersion = '1.1.0'
+
+        glideVersion = '4.12.0'
+
+        loggingInterceptorVersion = '4.9.1'
+
+        coroutinesVersion = '1.5.1'
+
+        viewModelVersion = '2.3.1'
+
+        lifecycleVersion = '2.2.0'
+
+        ktxCoreVersion = '1.6.0'
+
+        ktxCoreDep = "androidx.core:core-ktx:$ktxCoreVersion"
+
+        swipeRefreshLayoutDep = "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion"
+
+        kotlinDep = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+        fragmentDep = "androidx.fragment:fragment-ktx:$fragmentVersion"
+
+        viewPager2Dep = "androidx.viewpager2:viewpager2:$viewPager2Version"
+
+        androidDep = "androidx.appcompat:appcompat:$appcompatVersion"
+        cardViewDep = "androidx.cardview:cardview:$supportVersion"
+        recyclerViewDep = "androidx.recyclerview:recyclerview:$supportVersion"
+        constraintDep = "androidx.constraintlayout:constraintlayout:$constraintVersion"
+        materialDep = "com.google.android.material:material:$materialVersion"
+
+        supportDep = "com.android.support:support-v4:$supportVersion"
+        designDep = "com.android.support:design:$supportVersion"
+
+        rxJavaDep = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+        rxAndroidDep = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
+        daggerDep = "com.google.dagger:dagger:$daggerVersion"
+        daggerKapt = "com.google.dagger:dagger-compiler:$daggerVersion"
+
+        lifecycleKapt = "androidx.lifecycle:lifecycle-compiler:$architectureComponentVersion"
+
+        lifecycleKtxDep = "androidx.lifecycle:lifecycle-runtime-ktx:$architectureComponentVersion"
+        viewModelDep= "androidx.lifecycle:lifecycle-viewmodel-ktx:$architectureComponentVersion"
+
+        roomDep = "androidx.room:room-runtime:$roomVersion"
+        rxRoomDep = "androidx.room:room-rxjava2:$roomVersion"
+        roomKapt = "androidx.room:room-compiler:$roomVersion"
+
+        coroutinesDep = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+        navigationFragmentDep = "androidx.navigation:navigation-fragment:$navControllerVersion"
+        navigationUiDep = "androidx.navigation:navigation-ui:$navControllerVersion"
+
+        retrofitDep = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        gsonConvertedDep = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+        gsonDep = "com.google.code.gson:gson:$gsonVersion"
+        loggingInterceptorDep = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+
+        jUnitDep = "junit:junit:$junitVersion"
+        mockitoDep = "org.mockito:mockito-inline:$mockitoVersion"
+        robolectricDep = "org.robolectric:robolectric:$robolectricVersion"
+        robolectricMultidexDep = "org.robolectric:shadows-multidex:$robolectricVersion"
+        archCoreTestDep = "androidx.arch.core:core-testing:$architectureComponentVersion"
+        kotlin_version = '1.3.31'
+
+        glideDep = "com.github.bumptech.glide:glide:$glideVersion"
+    }
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+configurations {
+    ktlint
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+dependencies {
+    ktlint "com.pinterest:ktlint:$ktlintVersion"
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "--reporter=plain"
+    args "--android"
+    args "--reporter=checkstyle,output=${project.buildDir}/reports/checkstyle/kotlin-checkstyle-report.xml"
+    args "$project.rootDir/**/src/main/**/*.kt"
+}
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "$project.rootDir/**/src/main/**/*.kt"
+    args "--android"
+}

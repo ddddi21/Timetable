@@ -1,0 +1,12 @@
+# Project exclude paths
+*.iml
+.gradle
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+app/src/main/aidl/
+app/*.apk
+/.idea/
+/coverage

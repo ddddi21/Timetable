@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <include app:graph="@navigation/auth_nav_graph" />
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.technokratos.splash.presentation.SplashFragment"
+        android:label="splash_fragment"
+        tools:layout="@layout/splash_fragment">
+
+        <action
+            android:id="@+id/action_splashFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.example.feature_collection.presentation.CollectionFragment"
+        android:label="fragment_collection"
+        tools:layout="@layout/collection_fragment" />
+
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.technokratos.splash.presentation.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/add_fragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.technokratos.splash.presentation.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/profile_fragment" />
+
+    <fragment
+        android:id="@+id/filmDetailsFragment"
+        android:name="com.example.feature_film_details.presentation.FilmDetailsFragment"
+        android:label="fragment_film_details"
+        tools:layout="@layout/film_details_fragment" />
+
+</navigation>

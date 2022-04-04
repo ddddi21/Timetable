@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f9f9f9</color>
+    <color name="colorTextPrimary">#3C3C43</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="blueAccent">#002DFF</color>
+    <color name="endIconModeDarkGrey">#8a8a8e</color>
+    <color name="colorAccent">#c5c5c7</color>
+    <color name="white">#fff</color>
+    <color name="backgroundLightGrey">#E5E5E5</color>
+    <color name="loginEnterButtonLightGrey">#f4f4f5</color>
+    <color name="lightGrey">#c5c5c7</color>
+    <color name="colorError">#EB5757</color>
+    <color name="black">#000000</color>
+</resources>

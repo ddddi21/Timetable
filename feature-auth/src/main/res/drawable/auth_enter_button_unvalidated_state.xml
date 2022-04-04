@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/auth_enter_button_radius" />
+    <solid android:color="@color/loginEnterButtonLightGrey" />
+</shape>

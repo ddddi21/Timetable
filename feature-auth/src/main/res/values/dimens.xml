@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="agona_logo_margin_bottom">76dp</dimen>
+    <dimen name="agona_logo_margin_top">692dp</dimen>
+
+    <dimen name="watch_later_logo_margin_top">336dp</dimen>
+    <dimen name="watch_later_logo_margin_bottom">388dp</dimen>
+
+    <dimen name="eye_logo_center_place_margin_start">176dp</dimen>
+    <dimen name="eye_logo_center_place_margin_end">164dp</dimen>
+    
+    <dimen name="eye_logo_right_place_margin_start">184dp</dimen>
+    <dimen name="eye_logo_right_place_margin_end">156dp</dimen>
+
+    <dimen name="eye_logo_left_place_margin_start">164dp</dimen>
+    <dimen name="eye_logo_left_place_margin_end">176dp</dimen>
+    
+    <dimen name="app_logo_width">96dp</dimen>
+    <dimen name="app_logo_height">44dp</dimen>
+
+    <dimen name="app_logo_margin_top">160dp</dimen>
+
+    <dimen name="email_input_layout_margin_top">112dp</dimen>
+    <dimen name="email_input_layout_margin_bottom">440dp</dimen>
+    <dimen name="email_input_layout_width">376dp</dimen>
+    <dimen name="email_input_layout_height">60dp</dimen>
+
+    <dimen name="email_input_edit_text_margin_top">18dp</dimen>
+    <dimen name="email_input_edit_text_margin_bottom">18dp</dimen>
+    <dimen name="email_input_edit_text_margin_start">16dp</dimen>
+    <dimen name="email_input_edit_text_margin_end">16dp</dimen>
+    <dimen name="email_input_edit_text_width">344dp</dimen>
+    <dimen name="email_input_edit_text_height">20dp</dimen>
+
+    <dimen name="password_input_layout_margin_bottom">440dp</dimen>
+
+    <dimen name="login_enter_button_width">148dp</dimen>
+    <dimen name="login_enter_button_height">52dp</dimen>
+    <dimen name="login_enter_button_text_size">16sp</dimen>
+    <dimen name="login_enter_button_margin_top">112dp</dimen>
+
+    <dimen name="navigate_to_registration_linear_layout_padding_start_and_end">16dp</dimen>
+    <dimen name="navigate_to_registration_textView_padding_start">4dp</dimen>
+
+    <dimen name="auth_enter_button_radius">24dp</dimen>
+
+    <dimen name="registration_email_input_layout_margin_top">100dp</dimen>
+    <dimen name="registration_enter_button_margin_top">96dp</dimen>
+</resources>

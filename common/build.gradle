@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildTypes.each {
+        it.buildConfigField('String', 'AGONA_BACKEND_BASE_URL', "\"https://watchlater.cloud.technokratos.com/\"")
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation kotlinDep
+
+    implementation androidDep
+    implementation cardViewDep
+    implementation recyclerViewDep
+    implementation constraintDep
+
+    implementation rxJavaDep
+
+    implementation daggerDep
+    kapt daggerKapt
+
+    kapt lifecycleKapt
+    implementation viewModelDep
+
+    implementation retrofitDep
+    implementation gsonConvertedDep
+    implementation loggingInterceptorDep
+
+    implementation coroutinesDep
+
+    implementation materialDep
+
+    testImplementation jUnitDep
+    testImplementation mockitoDep
+}
