@@ -14,7 +14,7 @@ class RouterImpl @Inject constructor(
     }
 
     override fun navigateToMain() {
-        navigateTo(R.id.collectionFragment)
+//        navigateTo(R.id.collectionFragment)
     }
 
     override fun navigateToRegistration() {

@@ -16,7 +16,7 @@
     <dimen name="eye_logo_left_place_margin_end">176dp</dimen>
     
     <dimen name="app_logo_width">96dp</dimen>
-    <dimen name="app_logo_height">44dp</dimen>
+    <dimen name="app_logo_height">96dp</dimen>
 
     <dimen name="app_logo_margin_top">160dp</dimen>
 

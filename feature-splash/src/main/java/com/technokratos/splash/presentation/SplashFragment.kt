@@ -37,20 +37,20 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
 
     private fun startSplashAnimation() {
         val endActionTwo = Runnable {
-            binding.eyeIconImageView.animate()
+            binding.timeTableIconImageView.animate()
                 .translationX(THIRD_TRANSLATION_X_VALUE)
                 .setDuration(ANIMATION_DURATION)
                 .withEndAction(viewModel::onAnimationFinished)
         }
 
         val endActionOne = Runnable {
-            binding.eyeIconImageView.animate()
+            binding.timeTableIconImageView.animate()
                 .translationX(SECOND_TRANSLATION_X_VALUE)
                 .setDuration(ANIMATION_DURATION)
                 .withEndAction(endActionTwo)
         }
 
-        binding.eyeIconImageView.animate()
+        binding.timeTableIconImageView.animate()
             .translationX(FIRST_TRANSLATION_X_VALUE)
             .setDuration(ANIMATION_DURATION)
             .withEndAction(endActionOne)

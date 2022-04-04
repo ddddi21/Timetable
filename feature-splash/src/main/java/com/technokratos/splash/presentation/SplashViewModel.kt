@@ -23,11 +23,12 @@ class SplashViewModel(
 
     fun onAnimationFinished() {
         viewModelScope.launch {
-            if (!splashInteractor.isUserLoggedIn()) {
-                router.toLogin()
-            } else {
-                router.navigateToMain()
-            }
+//            if (!splashInteractor.isUserLoggedIn()) {
+//                router.toLogin()
+//            } else {
+//                router.navigateToMain()
+//            }
+            router.toLogin()
         }
     }
 }

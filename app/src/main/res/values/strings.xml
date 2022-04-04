@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Template</string>
+    <string name="app_name">Timetable</string>
     <string name="bottom_navigation_collection_tab">Коллекция</string>
     <string name="bottom_navigation_add_tab">Добавить</string>
     <string name="bottom_navigation_profile_tab">Профиль</string>
