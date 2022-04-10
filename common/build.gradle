@@ -57,6 +57,9 @@ dependencies {
     implementation gsonConvertedDep
     implementation loggingInterceptorDep
 
+    implementation lifecycleKtxDep
+    implementation viewModelDep
+
     implementation coroutinesDep
 
     implementation materialDep

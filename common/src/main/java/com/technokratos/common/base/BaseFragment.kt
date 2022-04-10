@@ -3,10 +3,17 @@ package com.technokratos.common.base
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.flowWithLifecycle
 import com.technokratos.common.R
 import com.technokratos.common.utils.EventObserver
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 // TODO (fix ktlint on all files)
@@ -77,4 +84,10 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
     abstract fun initViews()
 
     abstract fun subscribe(viewModel: T)
+
+    fun <T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, action: suspend (value: T) -> Unit) {
+        onEach(action)
+            .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .launchIn(lifecycleOwner.lifecycle.coroutineScope)
+    }
 }

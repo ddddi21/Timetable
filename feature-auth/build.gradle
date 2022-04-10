@@ -58,6 +58,8 @@ dependencies {
     implementation viewModelDep
     implementation lifecycleKtxDep
 
+    implementation ktxCoreDep
+
     testImplementation jUnitDep
     testImplementation mockitoDep
 }

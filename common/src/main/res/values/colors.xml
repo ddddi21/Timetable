@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f9f9f9</color>
+    <color name="colorPrimary">#0A366F</color>
     <color name="colorTextPrimary">#3C3C43</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="blueAccent">#002DFF</color>
@@ -12,4 +12,10 @@
     <color name="lightGrey">#c5c5c7</color>
     <color name="colorError">#EB5757</color>
     <color name="black">#000000</color>
+
+    <color name="common_selected_item">#F5FAFB</color>
+    <color name="colorGrey50">#FAFAFA</color>
+    <color name="common_grey">#646469</color>
+
+    <color name="common_pink">#8E0936</color>
 </resources>

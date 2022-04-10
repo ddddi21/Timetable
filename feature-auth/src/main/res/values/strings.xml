@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="email_address_hint">Адрес электронной почты</string>
-    <string name="password_hint">Пароль</string>
-    <string name="password_repeat_hint">Повторите пароль</string>
-    <string name="enter_button">Войти</string>
-    <string name="not_registered_yet_text">Еще не зарегистрированы?</string>
-    <string name="to_registration_text_view">Регистрация</string>
-    <string name="login_error_message">Неверные логин или пароль</string>
-    <string name="different_passwords_error_message">Пароли не совпадают</string>
-    <string name="incorrect_email_error_message">Введите корректную почту</string>
+
+    <string name="student_set_up_choose_university">Выберите университет</string>
+    <string name="student_set_up_choose_institute">Выберите институт</string>
+    <string name="student_set_up_choose_group">Выберите группу</string>
+    <string name="student_set_up_choose_elective_courses">Выберите курс по выбору</string>
+
 </resources>
