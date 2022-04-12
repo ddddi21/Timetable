@@ -1,25 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.technokratos.auth.presentation.itemView.StudentItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dimen_8dp"
     android:gravity="start"
     android:orientation="horizontal"
-    android:padding="@dimen/dimen_16dp">
-
-    <TextView
-        android:id="@+id/itemTitle"
-        style="@style/StudentSetUpTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/dimen_16dp"
-        android:textSize="@dimen/text_size_16sp"
-        tools:text="KPFU" />
+    android:padding="@dimen/dimen_4dp">
 
     <androidx.appcompat.widget.AppCompatRadioButton
         android:id="@+id/radioButton"
         style="@style/Widget.RadioButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_16sp" />
+
+</com.technokratos.auth.presentation.itemView.StudentItemView>

@@ -56,7 +56,8 @@ class RegistrationViewModel(
             password,
             isLoginButtonEnabled = false,
             isLoginErrorMessageVisible = true,
-            loginErrorMessage = resourceManager.getString(R.string.login_error_message))
+            loginErrorMessage = ""
+        )
     }
 
     fun onTextChanged(email: String, password: String, repeatPassword: String) {
@@ -78,7 +79,7 @@ class RegistrationViewModel(
                     repeatPassword,
                     isLoginButtonEnabled = false,
                     isLoginErrorMessageVisible = true,
-                    loginErrorMessage = resourceManager.getString(R.string.incorrect_email_error_message)
+                    loginErrorMessage = ""
                 )
                 false
             }
@@ -89,7 +90,7 @@ class RegistrationViewModel(
                     repeatPassword,
                     isLoginButtonEnabled = false,
                     isLoginErrorMessageVisible = true,
-                    loginErrorMessage = resourceManager.getString(R.string.different_passwords_error_message),
+                    loginErrorMessage = "",
                     isSamePassword = false
                 )
                 false

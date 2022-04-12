@@ -28,7 +28,12 @@ class AuthModule {
     @Provides
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
-    fun provideAuthViewModelFromStore(router: AuthRouter, interactor: AuthInteractor, resourceManager: ResourceManager): ViewModel {
+    fun provideAuthViewModelFromStore(
+        router: AuthRouter,
+        interactor: AuthInteractor,
+        resourceManager: ResourceManager,
+
+    ): ViewModel {
         return AuthViewModel(router, interactor, resourceManager)
     }
 }

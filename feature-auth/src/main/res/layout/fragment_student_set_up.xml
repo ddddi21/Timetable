@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:paddingHorizontal="@dimen/dimen_16dp"
     android:paddingTop="@dimen/dimen_12dp"
-    android:paddingBottom="@dimen/dimen_16dp">
+    android:paddingBottom="@dimen/dimen_8dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        app:title="@string/common_app_name"
-        app:titleTextColor="@color/colorPrimary"
         style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
-        app:navigationIcon="@drawable/ic_arrow_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:titleCentered="true"
+        app:titleTextColor="@color/colorPrimary" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/titleTextView"-->
+    <!--        style="@style/StudentSetUpTextStyle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginTop="?attr/actionBarSize"-->
+    <!--        android:padding="@dimen/dimen_4dp"-->
+    <!--        android:layout_marginBottom="@dimen/dimen_32dp"-->
+    <!--        android:textSize="@dimen/text_size_20sp"-->
+    <!--        tools:text="Choose univer" />-->
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -25,24 +35,20 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:overScrollMode="never">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        style="@style/StudentSetUpTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginBottom="@dimen/dimen_16dp"
-        android:textSize="@dimen/text_size_20sp"
-        tools:text="Choose univer" />
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        tools:listitem="@layout/item_student_choose" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_student_choose" />
+
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <Button
@@ -51,9 +57,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="@dimen/dimen_16dp"
+        android:layout_margin="@dimen/dimen_8dp"
         android:text="@string/common_next"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -62,5 +68,5 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:indeterminateTint="@color/common_pink"
-        android:visibility="gone"/>
-</LinearLayout>
+        android:visibility="gone" />
+</FrameLayout>

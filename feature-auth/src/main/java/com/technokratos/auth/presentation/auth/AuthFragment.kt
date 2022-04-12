@@ -1,10 +1,13 @@
 package com.technokratos.auth.presentation.auth
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.updatePadding
 import com.example.feature_auth.R
 import com.example.feature_auth.databinding.FragmentStudentSetUpBinding
 import com.technokratos.auth.di.AuthFeatureKey
@@ -15,15 +18,18 @@ import com.technokratos.auth.presentation.state.StudentChooseState
 import com.technokratos.common.base.BaseFragment
 import com.technokratos.common.base.adapter.BaseAdapter
 import com.technokratos.common.di.FeatureUtils
+import com.technokratos.common.utils.doOnNestedScrollChanged
+import com.technokratos.common.utils.hideViewWithDownAnimation
 import com.technokratos.common.utils.setDivider
+import com.technokratos.common.utils.showViewWithUpAnimation
 
 class AuthFragment : BaseFragment<AuthViewModel>() {
 
     private lateinit var viewBinding: FragmentStudentSetUpBinding
 
-    private val universityAdapter = BaseAdapter()
-    private val instituteAdapter = BaseAdapter()
-    private val groupAdapter = BaseAdapter()
+    private val listAdapter = BaseAdapter()
+//    private val instituteAdapter = BaseAdapter() // TODO (think after back will be done)
+//    private val groupAdapter = BaseAdapter()
 
 
     override fun onCreateView(
@@ -43,29 +49,63 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
     }
 
     override fun initViews() {
+        initScrollListener()
+        initLayoutTransition()
+        initContentLayoutPaddingBottom()
     }
 
     override fun subscribe(viewModel: AuthViewModel) {
         viewModel.studentChooseState.observe(viewLifecycleOwner, ::inflateViews)
+        viewModel.listFlow.observe(viewLifecycleOwner) {
+            listAdapter.update(it)
+        }
     }
 
     private fun inflateViews(state: StudentChooseState) = with(viewBinding) {
-        titleTextView.setText(state.screenType.getScreenTypeAppearance().remarkStatusTitle)
-        nextButton.isVisible = state.isItemChosen
-        toolbar.navigationIcon?.setVisible(state.isNeedToShowBackArrow, false)
+        toolbar.setTitle(state.screenType.getScreenTypeAppearance().remarkStatusTitle)
+        nextButton.isEnabled = state.isItemChosen
+        toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
+        } else null
 
         initAdapter(state)
     }
 
     private fun initAdapter(state: StudentChooseState) {
-        when (state.screenType) {
-            ScreenType.UNIVERSITY -> viewBinding.recyclerView.adapter = universityAdapter
-            ScreenType.INSTITUTE -> viewBinding.recyclerView.adapter = instituteAdapter
-            ScreenType.GROUP -> viewBinding.recyclerView.adapter = groupAdapter
-        }
+//        when (state.screenType) {
+//            ScreenType.UNIVERSITY -> viewBinding.recyclerView.adapter = universityAdapter // TODO (think after back will be done)
+//            ScreenType.INSTITUTE -> viewBinding.recyclerView.adapter = instituteAdapter
+//            ScreenType.GROUP -> viewBinding.recyclerView.adapter = groupAdapter
+//        }
+        viewBinding.recyclerView.adapter = listAdapter
         viewBinding.recyclerView.setDivider(R.drawable.list_divider)
     }
 
     private fun initRadioGroups(state: StudentChooseState) {
+    }
+
+    private fun initScrollListener() {
+        with(viewBinding) {
+            nestedScrollView.doOnNestedScrollChanged(
+//                predicate = { isEditable },
+                onScrollUp = { nextButton.showViewWithUpAnimation() },
+                onScrollDown = { nextButton.hideViewWithDownAnimation() }
+            )
+        }
+    }
+
+    private fun initLayoutTransition() {
+        val lt = LayoutTransition()
+        lt.disableTransitionType(LayoutTransition.DISAPPEARING)
+        viewBinding.contentLayout.layoutTransition = lt
+    }
+
+    private fun initContentLayoutPaddingBottom() {
+        val saveButtonSizeWithMargin = with(viewBinding.nextButton) {
+            marginBottom + minimumHeight
+        }
+        with(viewBinding.contentLayout) {
+            updatePadding(bottom = paddingBottom + saveButtonSizeWithMargin)
+        }
     }
 }
