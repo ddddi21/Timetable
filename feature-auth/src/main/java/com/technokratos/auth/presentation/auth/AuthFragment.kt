@@ -63,7 +63,7 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
 
     private fun inflateViews(state: StudentChooseState) = with(viewBinding) {
         toolbar.setTitle(state.screenType.getScreenTypeAppearance().remarkStatusTitle)
-        nextButton.isEnabled = state.isItemChosen
+//        nextButton.isEnabled = state.isItemChosen
         toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         } else null
