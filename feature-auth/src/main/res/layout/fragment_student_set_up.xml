@@ -16,18 +16,6 @@
         app:titleCentered="true"
         app:titleTextColor="@color/colorPrimary" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/titleTextView"-->
-    <!--        style="@style/StudentSetUpTextStyle"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center_horizontal"-->
-    <!--        android:layout_marginTop="?attr/actionBarSize"-->
-    <!--        android:padding="@dimen/dimen_4dp"-->
-    <!--        android:layout_marginBottom="@dimen/dimen_32dp"-->
-    <!--        android:textSize="@dimen/text_size_20sp"-->
-    <!--        tools:text="Choose univer" />-->
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
