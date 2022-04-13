@@ -19,8 +19,9 @@ class StudentItemView @JvmOverloads constructor(
 
     override fun fill(model: StudentItemModel) = with(binding) {
         radioButton.text = model.title
-        setOnClickListener {
-            model.onItemClicked?.invoke()
+        radioButton.isChecked = model.isChecked
+        radioButton.setOnClickListener {
+            model.onItemClicked?.invoke(model)
         }
     }
 }

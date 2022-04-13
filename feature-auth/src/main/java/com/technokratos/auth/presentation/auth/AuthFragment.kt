@@ -2,10 +2,12 @@ package com.technokratos.auth.presentation.auth
 
 import android.animation.LayoutTransition
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import com.example.feature_auth.R
@@ -26,6 +28,8 @@ import com.technokratos.common.utils.showViewWithUpAnimation
 class AuthFragment : BaseFragment<AuthViewModel>() {
 
     private lateinit var viewBinding: FragmentStudentSetUpBinding
+
+    private var isChosenItem = false
 
     private val listAdapter = BaseAdapter()
 //    private val instituteAdapter = BaseAdapter() // TODO (think after back will be done)
@@ -52,6 +56,7 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         initScrollListener()
         initLayoutTransition()
         initContentLayoutPaddingBottom()
+        initAdapter()
     }
 
     override fun subscribe(viewModel: AuthViewModel) {
@@ -63,15 +68,16 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
 
     private fun inflateViews(state: StudentChooseState) = with(viewBinding) {
         toolbar.setTitle(state.screenType.getScreenTypeAppearance().remarkStatusTitle)
-//        nextButton.isEnabled = state.isItemChosen
+        Log.e("LLL", state.toString())
+        nextButton.isEnabled = state.isItemChosen
+        isChosenItem = state.isItemChosen
         toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         } else null
 
-        initAdapter(state)
     }
 
-    private fun initAdapter(state: StudentChooseState) {
+    private fun initAdapter() {
 //        when (state.screenType) {
 //            ScreenType.UNIVERSITY -> viewBinding.recyclerView.adapter = universityAdapter // TODO (think after back will be done)
 //            ScreenType.INSTITUTE -> viewBinding.recyclerView.adapter = instituteAdapter
@@ -81,13 +87,17 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         viewBinding.recyclerView.setDivider(R.drawable.list_divider)
     }
 
+    private fun initClickListeners() {
+
+    }
+
     private fun initRadioGroups(state: StudentChooseState) {
     }
 
     private fun initScrollListener() {
         with(viewBinding) {
             nestedScrollView.doOnNestedScrollChanged(
-//                predicate = { isEditable },
+//                predicate = { isChosenItem },
                 onScrollUp = { nextButton.showViewWithUpAnimation() },
                 onScrollDown = { nextButton.hideViewWithDownAnimation() }
             )
