@@ -66,8 +66,6 @@ class AuthViewModel(
     }
 
     private fun onItemChecked(item: StudentItemModel) {
-        selectedItemId = item.id
-
         val oldList = _listFlow.replayCache.first()
 
         doCoroutineWork {
@@ -79,6 +77,8 @@ class AuthViewModel(
                     modelViewType.isChecked = false
                 } else if (modelViewType.id == item.id) {
                     modelViewType.isChecked = !modelViewType.isChecked
+
+                    selectedItemId = if (modelViewType.isChecked) item.id else 0
                 }
                 viewType
             }
