@@ -222,6 +222,7 @@ class AuthViewModel(
             ELECTIVES -> {
                 currentState.screenType = GROUP
                 currentState.selectedGroupId = 0
+                currentState.selectedElectivesList.clear()
             }
             ELECTIVE_DETAIL -> {
                 currentState.screenType = ELECTIVES
