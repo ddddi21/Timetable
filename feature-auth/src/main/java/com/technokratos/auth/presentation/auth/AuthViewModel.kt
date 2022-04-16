@@ -1,16 +1,15 @@
 package com.technokratos.auth.presentation.auth
 
 import com.technokratos.auth.domain.AuthInteractor
-import com.technokratos.auth.domain.model.University
-import com.technokratos.auth.presentation.mapper.mapUniversityToUniversityItemModel
-import com.technokratos.auth.presentation.model.ScreenType
+import com.technokratos.auth.domain.model.StudentItem
+import com.technokratos.auth.presentation.mapper.mapStudentItemToStudentItemModel
+import com.technokratos.auth.presentation.model.ScreenType.*
 import com.technokratos.auth.presentation.model.StudentItemModel
 import com.technokratos.auth.presentation.state.StudentChooseState
 import com.technokratos.auth.router.AuthRouter
 import com.technokratos.common.base.BaseViewModel
 import com.technokratos.common.base.adapter.ViewType
 import com.technokratos.common.resources.ResourceManager
-import com.technokratos.common.utils.isNullOrZero
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -29,35 +28,26 @@ class AuthViewModel(
         MutableSharedFlow<List<ViewType>>(1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val listFlow = _listFlow.asSharedFlow()
 
-    private var selectedItemId = 0
-
-    private val list = listOf( // TODO(remove)
-        University(1, "Кис"),
-        University(2, "Кис"),
-        University(3, "Я"),
-        University(4, "Котик"),
-        University(5, "Ты"),
-        University(6, "Котик"),
-        University(7, "А"),
-        University(8, "Твои"),
-        University(9, "Поцелуи"),
-        University(10, "Почти"),
-        University(11, "Как"),
-        University(12, "Легкий"),
-        University(13, "Цензура"),
-        University(15, "..")
-    )
+    private var selectedItemIdList = mutableListOf<Int>()
 
     init {
         setUniversityScreen()
         setList()
     }
 
+    fun onNextButtonClick() {
+        setUpCurrentList(setUpCurrentStateAfterNextButtonClick())
+    }
+
+    fun onBackClick() {
+        setUpCurrentList(setUpStateAfterBackClick())
+    }
+
     private fun setList() { // TODO(delete later)
         doCoroutineWork {
             _listFlow.emit(
-                list.map {
-                    mapUniversityToUniversityItemModel(it) {
+                getUniversity().map {
+                    mapStudentItemToStudentItemModel(it) {
                         onItemChecked(it)
                     }
                 }
@@ -78,7 +68,10 @@ class AuthViewModel(
                 } else if (modelViewType.id == item.id) {
                     modelViewType.isChecked = !modelViewType.isChecked
 
-                    selectedItemId = if (modelViewType.isChecked) item.id else 0
+                    if (modelViewType.isChecked) {
+                        selectedItemIdList.add(item.id)
+                    } else selectedItemIdList.clear()
+
                 }
                 viewType
             }
@@ -94,7 +87,7 @@ class AuthViewModel(
         doCoroutineWork {
             _studentChooseState.emit(
                 oldStudentChooseState.copy(
-                    isItemChosen = !selectedItemId.isNullOrZero()
+                    isItemChosen = !selectedItemIdList.isNullOrEmpty()
                 )
             )
         }
@@ -102,29 +95,82 @@ class AuthViewModel(
 
     private fun setUniversityScreen() {
         doCoroutineWork {
-            _studentChooseState.emit(StudentChooseState(screenType = ScreenType.UNIVERSITY))
+            _studentChooseState.emit(StudentChooseState(screenType = UNIVERSITY))
         }
     }
 
-    private fun setInstituteScreen() {
+
+    private fun setUpCurrentList(newState: StudentChooseState) {
         doCoroutineWork {
-            _studentChooseState.emit(
-                StudentChooseState(
-                    isNeedToShowBackArrow = true,
-                    screenType = ScreenType.INSTITUTE
-                )
+            // back request
+            // make Result<Unit>
+            val result: List<StudentItem> = when (newState.screenType) {
+                UNIVERSITY -> {
+                    getUniversity()
+                }
+                INSTITUTE -> {
+                    getInstitute()
+                }
+                GROUP -> {
+                    getGroup()
+                }
+                ELECTIVES -> emptyList() // TODO
+            }
+
+            _studentChooseState.emit(newState)
+            _listFlow.emit(
+                result.map {
+                    mapStudentItemToStudentItemModel(it) {
+                        onItemChecked(it)
+                    }
+                }
             )
         }
     }
 
-    private fun setGroupScreen() {
-        doCoroutineWork {
-            _studentChooseState.emit(
-                StudentChooseState(
-                    isNeedToShowBackArrow = true,
-                    screenType = ScreenType.GROUP
-                )
-            )
+    private fun setUpCurrentStateAfterNextButtonClick(): StudentChooseState {
+        val currentState = _studentChooseState.replayCache.first()
+
+        when (currentState.screenType) {
+            UNIVERSITY -> {
+                currentState.screenType = INSTITUTE
+                currentState.selectedUniversityId = selectedItemIdList.first()
+            }
+            INSTITUTE -> {
+                currentState.screenType = GROUP
+                currentState.selectedInstituteId = selectedItemIdList.first()
+            }
+            GROUP -> {
+                currentState.screenType = ELECTIVES
+                currentState.selectedGroupId = selectedItemIdList.first()
+            }
+            ELECTIVES -> {
+                currentState.selectedElectivesId = selectedItemIdList
+                // TODO
+            }
         }
+        currentState.isNeedToShowBackArrow = true
+        currentState.isItemChosen = false
+
+        selectedItemIdList.clear()
+
+        return currentState
+    }
+
+    private fun setUpStateAfterBackClick(): StudentChooseState {
+        val currentState = _studentChooseState.replayCache.first()
+
+        when (currentState.screenType) {
+            INSTITUTE -> {
+                currentState.screenType = UNIVERSITY
+                currentState.isNeedToShowBackArrow = false
+            }
+            GROUP -> currentState.screenType = INSTITUTE
+            ELECTIVES -> currentState.screenType = GROUP
+            else -> {
+            }
+        }
+
+        return currentState
     }
 }

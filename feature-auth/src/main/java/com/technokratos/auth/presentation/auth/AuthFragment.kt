@@ -57,6 +57,7 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         initLayoutTransition()
         initContentLayoutPaddingBottom()
         initAdapter()
+        initClickListeners()
     }
 
     override fun subscribe(viewModel: AuthViewModel) {
@@ -74,7 +75,6 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         } else null
-
     }
 
     private fun initAdapter() {
@@ -88,10 +88,12 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
     }
 
     private fun initClickListeners() {
-
-    }
-
-    private fun initRadioGroups(state: StudentChooseState) {
+        viewBinding.nextButton.setOnClickListener {
+            viewModel.onNextButtonClick()
+        }
+        viewBinding.toolbar.setNavigationOnClickListener {
+            viewModel.onBackClick()
+        }
     }
 
     private fun initScrollListener() {

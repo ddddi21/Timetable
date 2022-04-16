@@ -4,6 +4,6 @@
     <string name="student_set_up_choose_university">Выберите университет</string>
     <string name="student_set_up_choose_institute">Выберите институт</string>
     <string name="student_set_up_choose_group">Выберите группу</string>
-    <string name="student_set_up_choose_elective_courses">Выберите курс по выбору</string>
+    <string name="student_set_up_choose_elective_courses"> Курс по выбору</string>
 
 </resources>

@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import com.example.feature_auth.R
 
 enum class ScreenType {
-    UNIVERSITY, INSTITUTE, GROUP
+    UNIVERSITY, INSTITUTE, GROUP, ELECTIVES
 }
 
 enum class ScreenTypeAppearance(
@@ -18,6 +18,9 @@ enum class ScreenTypeAppearance(
     ),
     GROUP(
         R.string.student_set_up_choose_group
+    ),
+    ELECTIVES(
+        R.string.student_set_up_choose_elective_courses
     )
 }
 
@@ -26,5 +29,6 @@ fun ScreenType.getScreenTypeAppearance(): ScreenTypeAppearance {
         ScreenType.UNIVERSITY -> ScreenTypeAppearance.UNIVERSITY
         ScreenType.INSTITUTE -> ScreenTypeAppearance.INSTITUTE
         ScreenType.GROUP -> ScreenTypeAppearance.GROUP
+        ScreenType.ELECTIVES -> ScreenTypeAppearance.ELECTIVES
     }
 }
