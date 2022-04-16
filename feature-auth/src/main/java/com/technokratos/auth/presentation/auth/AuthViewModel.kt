@@ -1,8 +1,11 @@
 package com.technokratos.auth.presentation.auth
 
+import android.util.Log
 import com.technokratos.auth.domain.AuthInteractor
 import com.technokratos.auth.domain.model.StudentItem
+import com.technokratos.auth.presentation.mapper.mapStudentItemToElectiveItemModel
 import com.technokratos.auth.presentation.mapper.mapStudentItemToStudentItemModel
+import com.technokratos.auth.presentation.model.ElectiveItemModel
 import com.technokratos.auth.presentation.model.ScreenType.*
 import com.technokratos.auth.presentation.model.StudentItemModel
 import com.technokratos.auth.presentation.state.StudentChooseState
@@ -29,6 +32,8 @@ class AuthViewModel(
     val listFlow = _listFlow.asSharedFlow()
 
     private var selectedItemIdList = mutableListOf<Int>()
+
+    private var electiveBlocksCount = 0
 
     init {
         setUniversityScreen()
@@ -81,6 +86,17 @@ class AuthViewModel(
         }
     }
 
+    private fun onElectiveClicked(item: ElectiveItemModel) {
+        val currentState = _studentChooseState.replayCache.first()
+
+        selectedItemIdList.add(item.id)
+
+        currentState.screenType = ELECTIVE_DETAIL
+        currentState.selectedElectiveId = selectedItemIdList.first()
+
+        setUpCurrentList(currentState)
+    }
+
     private fun setCheckedScreenState() {
         val oldStudentChooseState = _studentChooseState.replayCache.first()
 
@@ -114,17 +130,41 @@ class AuthViewModel(
                 GROUP -> {
                     getGroup()
                 }
-                ELECTIVES -> emptyList() // TODO
+                ELECTIVES -> {
+                    electiveBlocksCount = 2 // TODO
+
+                    newState.isItemChosen =
+                        newState.selectedElectivesList.distinct().count() == electiveBlocksCount
+
+                    getElectives()
+                }
+                ELECTIVE_DETAIL -> {
+                    getElectiveDetails()
+                }
             }
 
             _studentChooseState.emit(newState)
+
             _listFlow.emit(
                 result.map {
-                    mapStudentItemToStudentItemModel(it) {
-                        onItemChecked(it)
+                    if (newState.screenType == ELECTIVES) {
+                        mapStudentItemToElectiveItemModel(it) {
+                            onElectiveClicked(it)
+                        }
+                    } else {
+                        mapStudentItemToStudentItemModel(it) {
+                            onItemChecked(it)
+                        }
                     }
                 }
             )
+            result.forEach {
+                if (newState.screenType == ELECTIVE_DETAIL &&
+                    newState.selectedElectivesList.contains(it.id)
+                ) {
+                    onItemChecked(mapStudentItemToStudentItemModel(it))
+                }
+            }
         }
     }
 
@@ -145,14 +185,21 @@ class AuthViewModel(
                 currentState.selectedGroupId = selectedItemIdList.first()
             }
             ELECTIVES -> {
-                currentState.selectedElectivesId = selectedItemIdList
-                // TODO
+                //router.navigateToMain
+            }
+            ELECTIVE_DETAIL -> {
+                selectedItemIdList.removeAt(0)
+                currentState.selectedElectivesList.addAll(selectedItemIdList)
+                currentState.screenType = ELECTIVES
             }
         }
         currentState.isNeedToShowBackArrow = true
         currentState.isItemChosen = false
 
         selectedItemIdList.clear()
+
+
+
 
         return currentState
     }
@@ -164,12 +211,28 @@ class AuthViewModel(
             INSTITUTE -> {
                 currentState.screenType = UNIVERSITY
                 currentState.isNeedToShowBackArrow = false
+                currentState.selectedInstituteId = 0
+                currentState.selectedUniversityId = 0
             }
-            GROUP -> currentState.screenType = INSTITUTE
-            ELECTIVES -> currentState.screenType = GROUP
+            GROUP -> {
+                currentState.screenType = INSTITUTE
+                currentState.selectedGroupId = 0
+                currentState.selectedInstituteId = 0
+            }
+            ELECTIVES -> {
+                currentState.screenType = GROUP
+                currentState.selectedGroupId = 0
+            }
+            ELECTIVE_DETAIL -> {
+                currentState.screenType = ELECTIVES
+                currentState.isItemChosen = false
+                currentState.selectedElectiveId = 0
+            }
             else -> {
             }
         }
+        selectedItemIdList.clear()
+
 
         return currentState
     }

@@ -54,3 +54,17 @@ fun getGroup() = listOf(
     StudentItem(11, "11-911"),
     StudentItem(12, "11-912"),
 )
+
+fun getElectives() = listOf(
+    StudentItem(1, "Научный блок"),
+    StudentItem(2, "Технический блок"),
+)
+
+fun getElectiveDetails() = listOf(
+    StudentItem(1, "Бер"),
+    StudentItem(2, "Ике"),
+    StudentItem(3, "Өч"),
+    StudentItem(4, "Дүрт"),
+    StudentItem(5, "Татарстан"),
+    StudentItem(6, "Супергуд"),
+)

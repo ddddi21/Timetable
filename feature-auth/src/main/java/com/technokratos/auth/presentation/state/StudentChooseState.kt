@@ -9,5 +9,6 @@ data class StudentChooseState(
     var selectedUniversityId: Int = 0,
     var selectedInstituteId: Int = 0,
     var selectedGroupId: Int = 0,
-    var selectedElectivesId: List<Int> = emptyList()
+    var selectedElectiveId: Int = 0,
+    var selectedElectivesList: MutableList<Int> = mutableListOf()
 )

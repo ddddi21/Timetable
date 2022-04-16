@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import com.example.feature_auth.R
@@ -75,6 +75,11 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         } else null
+
+        if (state.screenType == ScreenType.ELECTIVES && state.isItemChosen) {
+            Toast.makeText(requireContext(), "Ура, вы прошли игру", Toast.LENGTH_SHORT)
+                .show() // TODO (delete later)
+        }
     }
 
     private fun initAdapter() {
