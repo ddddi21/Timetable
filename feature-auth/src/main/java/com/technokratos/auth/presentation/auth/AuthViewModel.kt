@@ -33,8 +33,6 @@ class AuthViewModel(
 
     private var selectedItemIdList = mutableListOf<Int>()
 
-    private var electiveBlocksCount = 0
-
     init {
         setUniversityScreen()
         setList()
@@ -131,10 +129,8 @@ class AuthViewModel(
                     getGroup()
                 }
                 ELECTIVES -> {
-                    electiveBlocksCount = 2 // TODO
 
-                    newState.isItemChosen =
-                        newState.selectedElectivesList.distinct().count() == electiveBlocksCount
+                    newState.isItemChosen = true
 
                     getElectives()
                 }
@@ -226,7 +222,7 @@ class AuthViewModel(
             }
             ELECTIVE_DETAIL -> {
                 currentState.screenType = ELECTIVES
-                currentState.isItemChosen = false
+                currentState.isItemChosen = true
                 currentState.selectedElectiveId = 0
             }
             else -> {
