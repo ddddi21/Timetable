@@ -6,5 +6,5 @@ data class TimetableRequest(
     @SerializedName("group_id")
     val groupId: Int,
     @SerializedName("dop_course_id")
-    val coursesId: List<Int>
+    val coursesId: List<Int>?
 )

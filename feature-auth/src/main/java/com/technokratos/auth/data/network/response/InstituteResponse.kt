@@ -12,5 +12,5 @@ data class InstituteResponse(
     @SerializedName("link")
     val link: String,
     @SerializedName("university")
-    val university: String
+    val university: Int
 )

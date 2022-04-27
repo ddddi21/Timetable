@@ -43,11 +43,10 @@ class NetworkModule {
     @Provides
     @ApplicationScope
     @AuthTokenInterceptor
-    fun provideAuthTokenInterceptor(userSharedPreference: UserSharedPreferences): Interceptor {
+    fun provideAuthTokenInterceptor(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request().newBuilder()
                 .header("Accept", "application/json")
-                .header("Authorization", "${userSharedPreference.userAuthToken}")
                 .build()
             chain.proceed(request)
         }
