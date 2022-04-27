@@ -7,10 +7,10 @@ class SplashInteractor @Inject constructor(
     private val userSharedPreferences: UserSharedPreferences
 ) {
     fun isUserLoggedIn(): Boolean {
-        return !userSharedPreferences.userAuthToken.isNullOrEmpty()
+        return true
     }
 
     fun getUserRefreshToken(): String? {
-        return userSharedPreferences.userRefreshToken
+        return  ""
     }
 }

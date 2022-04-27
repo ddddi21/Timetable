@@ -1,24 +1,47 @@
 package com.technokratos.auth.domain
 
+import com.technokratos.auth.data.network.model.Block
+import com.technokratos.auth.data.network.model.Course
+import com.technokratos.auth.data.network.model.Group
+import com.technokratos.auth.data.network.model.Institute
+import com.technokratos.auth.data.network.model.Timetable
+import com.technokratos.auth.data.network.model.University
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
     private val authRepository: AuthRepository
 ) {
 
-    suspend fun signUp(email: String, password: String): Result<Unit> = runCatching {
-        authRepository.signUp(email, password)
+    suspend fun getUniversity(): Result<List<University>> = runCatching {
+        authRepository.getUniversity()
     }
 
-    suspend fun signIn(email: String, password: String): Result<Unit> = runCatching {
-        authRepository.signIn(email, password)
+    suspend fun getInstitute(id: String): Result<List<Institute>> = runCatching {
+        authRepository.getInstitute(id)
     }
 
-    suspend fun resetPassword(email: String): Result<Unit> = runCatching {
-        authRepository.reset(email)
+    suspend fun getGroup(id: String): Result<List<Group>> = runCatching {
+        authRepository.getGroup(id)
     }
 
-    suspend fun updateTokens(refreshToken: String): Result<Unit> = runCatching {
-        authRepository.updateTokens(refreshToken)
+    suspend fun getCourseBlock(id: String): Result<List<Block>> = runCatching {
+        authRepository.getCourseBlock(id)
     }
+
+    suspend fun getCourse(id: String): Result<List<Course>> = runCatching {
+        authRepository.getCourse(id)
+    }
+
+    suspend fun getTimetable(groupId: Int, coursesIdList: List<Int>?): Result<List<Timetable>> =
+        runCatching {
+            authRepository.getTimetable(groupId, coursesIdList)
+        }
+
+    fun saveUserSettings(
+        universityId: Int,
+        instituteId: Int,
+        groupId: Int,
+        blockId: Int,
+        coursesIdList: List<Int>
+    ) = authRepository.saveUserSettings(universityId, instituteId, groupId, blockId, coursesIdList)
 }

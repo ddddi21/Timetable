@@ -48,13 +48,26 @@ class AuthViewModel(
 
     private fun setList() { // TODO(delete later)
         doCoroutineWork {
-            _listFlow.emit(
-                getUniversity().map {
-                    mapStudentItemToStudentItemModel(it) {
-                        onItemChecked(it)
-                    }
+            val result = interactor.getUniversity().map {
+                it.map { university ->
+                    StudentItem(
+                        id = university.id,
+                        title = university.name
+                    )
                 }
-            )
+            }
+
+            if (result.isSuccess) {
+                result.getOrNull()?.let {
+                    _listFlow.emit(
+                        it.map {
+                            mapStudentItemToStudentItemModel(it) {
+                                onItemChecked(it)
+                            }
+                        }
+                    )
+                }
+            }
         }
     }
 
@@ -118,86 +131,126 @@ class AuthViewModel(
         doCoroutineWork {
             // back request
             // make Result<Unit>
-            val result: List<StudentItem> = when (newState.screenType) {
+            val result: Result<List<StudentItem>> = when (newState.screenType) {
                 UNIVERSITY -> {
-                    getUniversity()
+                    interactor.getUniversity().map {
+                        it.map { university ->
+                            StudentItem(
+                                id = university.id,
+                                title = university.name
+                            )
+                        }
+                    }
                 }
                 INSTITUTE -> {
-                    getInstitute()
+                    interactor.getInstitute(_studentChooseState.replayCache.first().selectedUniversityId.toString())
+                        .map {
+                            it.map { institute ->
+                                StudentItem(
+                                    id = institute.id,
+                                    title = institute.name
+                                )
+                            }
+                        }
                 }
                 GROUP -> {
-                    getGroup()
+                    interactor.getGroup(_studentChooseState.replayCache.first().selectedInstituteId.toString())
+                        .map {
+                            it.map { group ->
+                                StudentItem(
+                                    id = group.id,
+                                    title = group.groupNumber
+                                )
+                            }
+                        }
                 }
                 ELECTIVES -> {
 
                     newState.isItemChosen = true
 
-                    getElectives()
+                    interactor.getCourseBlock(_studentChooseState.replayCache.first().selectedGroupId.toString())
+                        .map {
+                            it.map { block ->
+                                StudentItem(
+                                    id = block.id,
+                                    title = block.name
+                                )
+                            }
+                        }
                 }
                 ELECTIVE_DETAIL -> {
-                    getElectiveDetails()
+                    interactor.getCourse(_studentChooseState.replayCache.first().selectedElectiveId.toString())
+                        .map {
+                            it.map { course ->
+                                StudentItem(
+                                    id = course.id,
+                                    title = course.name
+                                )
+                            }
+                        }
                 }
             }
 
             _studentChooseState.emit(newState)
 
-            _listFlow.emit(
-                result.map {
-                    if (newState.screenType == ELECTIVES) {
-                        mapStudentItemToElectiveItemModel(it) {
-                            onElectiveClicked(it)
+            if (result.isSuccess) {
+                result.getOrNull()?.let {
+                    _listFlow.emit(
+                        it.map {
+                            if (newState.screenType == ELECTIVES) {
+                                mapStudentItemToElectiveItemModel(it) {
+                                    onElectiveClicked(it)
+                                }
+                            } else {
+                                mapStudentItemToStudentItemModel(it) {
+                                    onItemChecked(it)
+                                }
+                            }
                         }
-                    } else {
-                        mapStudentItemToStudentItemModel(it) {
-                            onItemChecked(it)
+                    )
+                    it.forEach { item ->
+                        if (newState.screenType == ELECTIVE_DETAIL &&
+                            newState.selectedElectivesList.contains(item.id)
+                        ) {
+                            onItemChecked(mapStudentItemToStudentItemModel(item))
                         }
                     }
                 }
-            )
-            result.forEach {
-                if (newState.screenType == ELECTIVE_DETAIL &&
-                    newState.selectedElectivesList.contains(it.id)
-                ) {
-                    onItemChecked(mapStudentItemToStudentItemModel(it))
-                }
+
             }
         }
     }
 
     private fun setUpCurrentStateAfterNextButtonClick(): StudentChooseState {
-        val currentState = _studentChooseState.replayCache.first()
+            val currentState = _studentChooseState.replayCache.first()
 
-        when (currentState.screenType) {
-            UNIVERSITY -> {
-                currentState.screenType = INSTITUTE
-                currentState.selectedUniversityId = selectedItemIdList.first()
+            when (currentState.screenType) {
+                UNIVERSITY -> {
+                    currentState.screenType = INSTITUTE
+                    currentState.selectedUniversityId = selectedItemIdList.first()
+                }
+                INSTITUTE -> {
+                    currentState.screenType = GROUP
+                    currentState.selectedInstituteId = selectedItemIdList.first()
+                }
+                GROUP -> {
+                    currentState.screenType = ELECTIVES
+                    currentState.selectedGroupId = selectedItemIdList.first()
+                }
+                ELECTIVES -> {
+                }
+                ELECTIVE_DETAIL -> {
+                    selectedItemIdList.removeAt(0)
+                    currentState.selectedElectivesList.addAll(selectedItemIdList)
+                    currentState.screenType = ELECTIVES
+                }
             }
-            INSTITUTE -> {
-                currentState.screenType = GROUP
-                currentState.selectedInstituteId = selectedItemIdList.first()
-            }
-            GROUP -> {
-                currentState.screenType = ELECTIVES
-                currentState.selectedGroupId = selectedItemIdList.first()
-            }
-            ELECTIVES -> {
-                //router.navigateToMain
-            }
-            ELECTIVE_DETAIL -> {
-                selectedItemIdList.removeAt(0)
-                currentState.selectedElectivesList.addAll(selectedItemIdList)
-                currentState.screenType = ELECTIVES
-            }
-        }
-        currentState.isNeedToShowBackArrow = true
-        currentState.isItemChosen = false
+            currentState.isNeedToShowBackArrow = true
+            currentState.isItemChosen = false
 
-        selectedItemIdList.clear()
+            selectedItemIdList.clear()
 
-
-
-
-        return currentState
+            return currentState
     }
 
     private fun setUpStateAfterBackClick(): StudentChooseState {
