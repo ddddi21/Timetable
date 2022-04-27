@@ -29,7 +29,7 @@ class NetworkModule {
     @Provides
     @ApplicationScope
     @BaseUrlString
-    fun provideBaseUrl(): String = BuildConfig.AGONA_BACKEND_BASE_URL
+    fun provideBaseUrl(): String = BuildConfig.BASE_URL
 
     @Provides
     @ApplicationScope
