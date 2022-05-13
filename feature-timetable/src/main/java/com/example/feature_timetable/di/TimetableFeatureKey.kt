@@ -1,0 +1,3 @@
+package com.example.feature_timetable.di
+
+interface TimetableFeatureKey
