@@ -15,7 +15,7 @@ object FeatureUtils {
     }
 
     fun <T> getFeature(fragment: Fragment, key: Class<*>): T {
-        return getHolder(fragment.context!!).getFeature(key)
+        return getHolder(fragment.requireContext()).getFeature(key)
     }
 
     fun releaseFeature(context: Context, key: Class<*>) {

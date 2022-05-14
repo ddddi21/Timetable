@@ -18,7 +18,7 @@ import dagger.Component
 @FeatureScope
 interface TimetableFeatureComponent : TimetableFeatureKey {
 
-    fun splashComponentFactory(): TimetableComponent.Factory
+    fun timetableComponentFactory(): TimetableComponent.Factory
 
     @Component.Builder
     interface Builder {

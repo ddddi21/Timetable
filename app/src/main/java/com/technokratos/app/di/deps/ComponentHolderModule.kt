@@ -1,5 +1,7 @@
 package com.technokratos.app.di.deps
 
+import com.example.feature_timetable.di.TimetableFeatureHolder
+import com.example.feature_timetable.di.TimetableFeatureKey
 import com.technokratos.app.App
 import com.technokratos.auth.di.AuthFeatureHolder
 import com.technokratos.auth.di.AuthFeatureKey
@@ -39,4 +41,10 @@ interface ComponentHolderModule {
     @ClassKey(AuthFeatureKey::class)
     @IntoMap
     fun provideAuthFeatureHolder(authFeatureHolder: AuthFeatureHolder): FeatureApiHolder
+
+    @ApplicationScope
+    @Binds
+    @ClassKey(TimetableFeatureKey::class)
+    @IntoMap
+    fun provideTimetableFeatureHolder(timetableFeatureHolder: TimetableFeatureHolder): FeatureApiHolder
 }

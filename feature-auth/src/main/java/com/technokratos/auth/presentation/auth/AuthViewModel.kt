@@ -1,6 +1,5 @@
 package com.technokratos.auth.presentation.auth
 
-import android.util.Log
 import com.technokratos.auth.domain.AuthInteractor
 import com.technokratos.auth.domain.model.StudentItem
 import com.technokratos.auth.presentation.mapper.mapStudentItemToElectiveItemModel
@@ -129,8 +128,6 @@ class AuthViewModel(
 
     private fun setUpCurrentList(newState: StudentChooseState) {
         doCoroutineWork {
-            // back request
-            // make Result<Unit>
             val result: Result<List<StudentItem>> = when (newState.screenType) {
                 UNIVERSITY -> {
                     interactor.getUniversity().map {
@@ -285,5 +282,9 @@ class AuthViewModel(
 
 
         return currentState
+    }
+
+    fun onActionButtonClicked() {
+        router.navigateToMain(studentChooseState.replayCache.first())
     }
 }

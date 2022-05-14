@@ -32,7 +32,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
         setUpNavigation()
         viewModel.onViewCreated()
     }
-    // вынесу мейн штуки в отдельный модуль в другом пр
 
     override fun subscribe(viewModel: MainViewModel) {
         // TODO
@@ -47,8 +46,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.splashFragment,
-                R.id.authFragment,
-                R.id.registrationFragment -> bottomNavigationView.visibility = View.GONE
+                R.id.authFragment -> bottomNavigationView.visibility = View.GONE
 
                 else -> bottomNavigationView.visibility = View.VISIBLE
             }

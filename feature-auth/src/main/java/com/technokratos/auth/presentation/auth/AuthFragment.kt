@@ -13,6 +13,7 @@ import com.example.feature_auth.R
 import com.example.feature_auth.databinding.FragmentStudentSetUpBinding
 import com.technokratos.auth.di.AuthFeatureKey
 import com.technokratos.auth.di.AuthFeatureComponent
+import com.technokratos.auth.presentation.model.ScreenType
 import com.technokratos.auth.presentation.model.getScreenTypeAppearance
 import com.technokratos.auth.presentation.state.StudentChooseState
 import com.technokratos.common.base.BaseFragment
@@ -30,9 +31,6 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
     private var isChosenItem = false
 
     private val listAdapter = BaseAdapter()
-//    private val instituteAdapter = BaseAdapter() // TODO (think after back will be done)
-//    private val groupAdapter = BaseAdapter()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,22 +71,24 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         } else null
+
+        when (state.screenType) {
+            ScreenType.ELECTIVES, ScreenType.ELECTIVE_DETAIL ->
+                nextButton.setOnClickListener {
+                    viewModel.onActionButtonClicked()
+                }
+            else ->  nextButton.setOnClickListener {
+                viewModel.onNextButtonClick()
+            }
+        }
     }
 
     private fun initAdapter() {
-//        when (state.screenType) {
-//            ScreenType.UNIVERSITY -> viewBinding.recyclerView.adapter = universityAdapter // TODO (think after back will be done)
-//            ScreenType.INSTITUTE -> viewBinding.recyclerView.adapter = instituteAdapter
-//            ScreenType.GROUP -> viewBinding.recyclerView.adapter = groupAdapter
-//        }
         viewBinding.recyclerView.adapter = listAdapter
         viewBinding.recyclerView.setDivider(R.drawable.list_divider)
     }
 
     private fun initClickListeners() {
-        viewBinding.nextButton.setOnClickListener {
-            viewModel.onNextButtonClick()
-        }
         viewBinding.toolbar.setNavigationOnClickListener {
             viewModel.onBackClick()
         }

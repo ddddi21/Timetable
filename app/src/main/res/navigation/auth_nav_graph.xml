@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.technokratos.splash.presentation.SplashFragment"
+        android:label="splash_fragment"
+        tools:layout="@layout/splash_fragment">
+
+        <action
+            android:id="@+id/action_splashFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.technokratos.auth.presentation.auth.AuthFragment"
+        android:label="auth_fragment"
+        tools:layout="@layout/fragment_student_set_up">
+
+        <action
+            android:id="@+id/action_authFragment_to_timetableFragment"
+            app:destination="@id/timetableFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="com.example.feature_timetable.presentation.TimetableFragment"
+        android:label="timetable_fragment"
+        tools:layout="@layout/timetable_fragment">
+    </fragment>
+
+</navigation>

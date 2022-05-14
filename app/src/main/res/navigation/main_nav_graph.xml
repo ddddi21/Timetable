@@ -9,13 +9,20 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.feature_timetable.presentation.SplashFragment"
+        android:name="com.technokratos.splash.presentation.SplashFragment"
         android:label="splash_fragment"
         tools:layout="@layout/splash_fragment">
 
         <action
             android:id="@+id/action_splashFragment_to_authFragment"
             app:destination="@id/authFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="com.example.feature_timetable.presentation.TimetableFragment"
+        android:label="timetable_fragment"
+        tools:layout="@layout/timetable_fragment">
     </fragment>
 
 </navigation>

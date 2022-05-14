@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_navigation_view_height"
         android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
+        android:background="@color/backgroundLightGrey"
         app:itemIconTint="@color/bottom_navigation_selector_colors"
         app:itemTextColor="@color/bottom_navigation_selector_colors"
         app:labelVisibilityMode="labeled"
