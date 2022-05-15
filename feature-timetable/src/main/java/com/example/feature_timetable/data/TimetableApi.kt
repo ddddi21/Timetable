@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface TimetableApi {
 
-    @POST("student/timetable")
+    @POST("student/timetable/")
     suspend fun getTimetable(@Body timetableRequest: TimetableRequest): List<TimetableResponse>
 
 }
