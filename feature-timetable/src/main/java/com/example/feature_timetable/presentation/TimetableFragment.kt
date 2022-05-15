@@ -42,7 +42,7 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
     }
 
     override fun initViews() {
-//        TODO("Not yet implemented")
+        viewModel.loadTimetable(studentChooseState)
     }
 
     override fun subscribe(viewModel: TimetableViewModel) {

@@ -14,8 +14,5 @@ interface CommonApi {
     @UnauthorizedRetrofit
     fun provideUnauthorizedNetworkApiCreator(): NetworkApiCreator
 
-    @AuthorizedRetrofit
-    fun provideAuthorizedNetworkApiCreator(): NetworkApiCreator
-
     fun provideUserSharedPreferences(): UserSharedPreferences
 }

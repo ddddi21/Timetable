@@ -4,8 +4,8 @@ import com.technokratos.auth.data.network.model.Block
 import com.technokratos.auth.data.network.model.Course
 import com.technokratos.auth.data.network.model.Group
 import com.technokratos.auth.data.network.model.Institute
-import com.technokratos.auth.data.network.model.Timetable
 import com.technokratos.auth.data.network.model.University
+import com.technokratos.auth.presentation.state.StudentChooseState
 
 interface AuthRepository {
 
@@ -19,13 +19,5 @@ interface AuthRepository {
 
     suspend fun getCourse(id: String): List<Course>
 
-    suspend fun getTimetable (groupId: Int, coursesIdList: List<Int>?): List<Timetable>
-
-    fun saveUserSettings(
-        universityId: Int,
-        instituteId: Int,
-        groupId: Int,
-        blockId: Int,
-        coursesIdList: List<Int>
-    )
+    fun saveUserSettings(studentChooseState: StudentChooseState)
 }

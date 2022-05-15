@@ -41,19 +41,22 @@ dependencies {
 
     implementation daggerDep
     implementation constraintDep
-    implementation navigationFragmentDep
     kapt daggerKapt
 
     kapt lifecycleKapt
     implementation viewModelDep
 
-    testImplementation jUnitDep
-    testImplementation mockitoDep
-    implementation lifecycleKtxDep
+    implementation materialDep
+
+    implementation retrofitDep
+    implementation gsonConvertedDep
+    implementation loggingInterceptorDep
     implementation coroutinesDep
     implementation viewModelDep
+    implementation lifecycleKtxDep
 
-    implementation fragmentDep
+    implementation ktxCoreDep
 
-    implementation supportDep
+    testImplementation jUnitDep
+    testImplementation mockitoDep
 }

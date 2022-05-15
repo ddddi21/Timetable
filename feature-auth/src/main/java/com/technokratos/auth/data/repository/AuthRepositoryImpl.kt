@@ -5,10 +5,9 @@ import com.technokratos.auth.data.network.model.Block
 import com.technokratos.auth.data.network.model.Course
 import com.technokratos.auth.data.network.model.Group
 import com.technokratos.auth.data.network.model.Institute
-import com.technokratos.auth.data.network.model.Timetable
 import com.technokratos.auth.data.network.model.University
-import com.technokratos.auth.data.network.request.TimetableRequest
 import com.technokratos.auth.domain.AuthRepository
+import com.technokratos.auth.presentation.state.StudentChooseState
 import com.technokratos.common.local.sp.UserSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -33,7 +32,7 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getInstitute(id: String): List<Institute> {
-       return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
             authApi.getInstitute(id).map { response ->
                 Institute(
                     id = response.id,
@@ -82,44 +81,22 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTimetable(groupId: Int, coursesIdList: List<Int>?): List<Timetable> {
-        return withContext(Dispatchers.IO) {
-            authApi.getTimetable(
-                TimetableRequest(
-                    groupId = groupId,
-                    coursesId = coursesIdList
-                )
-            ).map { response ->
-                Timetable(
-                    id = response.id,
-                    dayName = response.dayName,
-                    startTime = response.startTime,
-                    endTime = response.endTime,
-                    type = response.type,
-                    isEvenWeek = response.isEvenWeek,
-                    classroom = response.classroom,
-                    links = response.links,
-                    teacherId = response.teacherId,
-                    subjectId = response.subjectId,
-                    groupId = response.groupId
-                )
+    override fun saveUserSettings(studentChooseState: StudentChooseState) {
+        with(userSharedPreferences) {
+            university = studentChooseState.selectedUniversityId.toString()
+            institute = studentChooseState.selectedInstituteId.toString()
+            group = studentChooseState.selectedGroupId.toString()
+            block = studentChooseState.selectedElectiveId.toString().ifEmpty {
+                null
             }
+            courses =
+                if (studentChooseState.selectedElectivesList.map { it.toString() }.toMutableSet()
+                        .isNullOrEmpty()
+                ) {
+                    null
+                } else {
+                    studentChooseState.selectedElectivesList.map { it.toString() }.toMutableSet()
+                }
         }
-    }
-
-    override fun saveUserSettings(
-        universityId: Int,
-        instituteId: Int,
-        groupId: Int,
-        blockId: Int,
-        coursesIdList: List<Int>
-    ) {
-       with(userSharedPreferences) {
-           university = universityId.toString()
-           institute = instituteId.toString()
-           group = groupId.toString()
-           block = blockId.toString()
-           courses = coursesIdList.map { it.toString() }.toMutableSet()
-       }
     }
 }

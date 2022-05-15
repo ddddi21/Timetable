@@ -285,6 +285,7 @@ class AuthViewModel(
     }
 
     fun onActionButtonClicked() {
+        interactor.saveUserSettings(studentChooseState.replayCache.first())
         router.navigateToMain(studentChooseState.replayCache.first())
     }
 }

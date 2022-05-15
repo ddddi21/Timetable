@@ -1,4 +1,4 @@
-package com.technokratos.auth.data.network.response
+package com.example.feature_timetable.data.network.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -24,5 +24,7 @@ data class TimetableResponse(
     @SerializedName("subject")
     val subjectId: Int,
     @SerializedName("group")
-    val groupId: Int
+    val groupId: Int,
+    @SerializedName("is_changed")
+    val isChanged: Boolean
 )

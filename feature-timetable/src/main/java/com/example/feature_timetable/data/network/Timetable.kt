@@ -1,4 +1,4 @@
-package com.technokratos.auth.data.network.model
+package com.example.feature_timetable.data.network
 
 data class Timetable(
     val id: Int,
@@ -11,5 +11,6 @@ data class Timetable(
     val links: List<String>,
     val teacherId: Int,
     val subjectId: Int,
-    val groupId: Int
+    val groupId: Int,
+    val isChanged: Boolean,
 )

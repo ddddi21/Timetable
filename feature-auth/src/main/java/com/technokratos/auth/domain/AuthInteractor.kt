@@ -4,8 +4,8 @@ import com.technokratos.auth.data.network.model.Block
 import com.technokratos.auth.data.network.model.Course
 import com.technokratos.auth.data.network.model.Group
 import com.technokratos.auth.data.network.model.Institute
-import com.technokratos.auth.data.network.model.Timetable
 import com.technokratos.auth.data.network.model.University
+import com.technokratos.auth.presentation.state.StudentChooseState
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
@@ -32,16 +32,6 @@ class AuthInteractor @Inject constructor(
         authRepository.getCourse(id)
     }
 
-    suspend fun getTimetable(groupId: Int, coursesIdList: List<Int>?): Result<List<Timetable>> =
-        runCatching {
-            authRepository.getTimetable(groupId, coursesIdList)
-        }
-
-    fun saveUserSettings(
-        universityId: Int,
-        instituteId: Int,
-        groupId: Int,
-        blockId: Int,
-        coursesIdList: List<Int>
-    ) = authRepository.saveUserSettings(universityId, instituteId, groupId, blockId, coursesIdList)
+    fun saveUserSettings(studentChooseState: StudentChooseState) =
+        authRepository.saveUserSettings(studentChooseState)
 }
