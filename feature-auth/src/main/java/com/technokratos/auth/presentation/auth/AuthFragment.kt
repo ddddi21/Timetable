@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import com.example.feature_auth.R
@@ -66,7 +67,7 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
     private fun inflateViews(state: StudentChooseState) = with(viewBinding) {
         toolbar.setTitle(state.screenType.getScreenTypeAppearance().remarkStatusTitle)
         Log.e("LLL", state.toString())
-        nextButton.isEnabled = state.isItemChosen
+        nextButton.isVisible = state.isItemChosen
         isChosenItem = state.isItemChosen
         toolbar.navigationIcon = if (state.isNeedToShowBackArrow) {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)

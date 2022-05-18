@@ -1,7 +1,7 @@
 package com.example.feature_timetable.data.repository
 
 import com.example.feature_timetable.data.TimetableApi
-import com.example.feature_timetable.data.network.Timetable
+import com.example.feature_timetable.data.network.Lesson
 import com.example.feature_timetable.data.network.request.TimetableRequest
 import com.example.feature_timetable.domain.TimetableRepository
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class TimetableRepositoryImpl @Inject constructor(
         groupId: Int,
         coursesIdList: List<Int>,
         isCurrentWeek: Boolean
-    ): List<Timetable> {
+    ): List<Lesson> {
         return withContext(Dispatchers.IO) {
             timetableApi.getTimetable(
                 TimetableRequest(
@@ -25,7 +25,7 @@ class TimetableRepositoryImpl @Inject constructor(
                     isCurrentWeek = isCurrentWeek
                 )
             ).map { response ->
-                Timetable(
+                Lesson(
                     id = response.id,
                     dayName = response.dayName,
                     startTime = response.startTime,
@@ -34,8 +34,8 @@ class TimetableRepositoryImpl @Inject constructor(
                     isEvenWeek = response.isEvenWeek,
                     classroom = response.classroom,
                     links = response.links,
-                    teacherId = response.teacherId,
-                    subjectId = response.subjectId,
+                    teacher = response.teacher,
+                    subject = response.subject,
                     groupId = response.groupId,
                     isChanged = response.isChanged
                 )

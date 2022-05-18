@@ -1,6 +1,6 @@
 package com.example.feature_timetable.domain
 
-import com.example.feature_timetable.data.network.Timetable
+import com.example.feature_timetable.data.network.Lesson
 
 interface TimetableRepository {
 
@@ -8,5 +8,5 @@ interface TimetableRepository {
         groupId: Int,
         coursesIdList: List<Int>,
         isCurrentWeek: Boolean
-    ): List<Timetable>
+    ): List<Lesson>
 }

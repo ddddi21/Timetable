@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+
+    <string name="offline_practice">Практика очно</string>
+    <string name="online_practice">Практика онлайн</string>
+    <string name="offline_lecture">Лекция очно</string>
+    <string name="online_lecture">Лекция онлайн</string>
+    <string name="canceled">Отменена</string>
+
+    <string name="timetable">Расписание</string>
+
+</resources>

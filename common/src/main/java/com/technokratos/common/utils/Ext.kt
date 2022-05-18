@@ -47,4 +47,3 @@ fun <T> MutableLiveData<T>.postValueIfNew(newValue: T) {
 fun Int?.isNullOrZero(): Boolean {
     return this == 0 || this == null
 }
-

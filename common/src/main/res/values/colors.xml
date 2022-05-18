@@ -11,6 +11,8 @@
     <color name="loginEnterButtonLightGrey">#f4f4f5</color>
     <color name="lightGrey">#c5c5c7</color>
     <color name="colorError">#EB5757</color>
+    <color name="colorDarkRed">#A13E3E</color>
+    <color name="colorDarkBlue">#1B1D3C</color>
     <color name="black">#000000</color>
 
     <color name="common_selected_item">#F5FAFB</color>
@@ -18,4 +20,5 @@
     <color name="common_grey">#646469</color>
 
     <color name="common_pink">#8E0936</color>
+    <color name="colorBlueLight">#B9C6DA</color>
 </resources>

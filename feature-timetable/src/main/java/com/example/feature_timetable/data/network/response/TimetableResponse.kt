@@ -6,23 +6,23 @@ data class TimetableResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("day_name")
-    val dayName: String,
+    val dayName: Int,
     @SerializedName("start_time")
     val startTime: String,
     @SerializedName("end_time")
     val endTime: String,
     @SerializedName("type")
-    val type: String,
+    val type: Int,
     @SerializedName("is_even_week")
-    val isEvenWeek: Boolean,
+    val isEvenWeek: Int,
     @SerializedName("classroom")
-    val classroom: String,
+    val classroom: String?,
     @SerializedName("links")
-    val links: List<String>,
+    val links: List<String>?,
     @SerializedName("teacher")
-    val teacherId: Int,
+    val teacher: String,
     @SerializedName("subject")
-    val subjectId: Int,
+    val subject: String,
     @SerializedName("group")
     val groupId: Int,
     @SerializedName("is_changed")
