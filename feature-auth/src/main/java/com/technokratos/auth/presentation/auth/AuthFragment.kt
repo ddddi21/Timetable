@@ -74,7 +74,7 @@ class AuthFragment : BaseFragment<AuthViewModel>() {
         } else null
 
         when (state.screenType) {
-            ScreenType.ELECTIVES, ScreenType.ELECTIVE_DETAIL ->
+            ScreenType.ELECTIVES ->
                 nextButton.setOnClickListener {
                     viewModel.onActionButtonClicked()
                 }
