@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/timetableFragment"
-        android:name="com.example.feature_timetable.presentation.TimetableFragment"
+        android:name="com.example.feature_timetable.presentation.timetable.TimetableFragment"
         android:label="timetable_fragment"
         tools:layout="@layout/timetable_fragment">
     </fragment>

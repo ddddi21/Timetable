@@ -1,8 +1,8 @@
-package com.example.feature_timetable.presentation.di
+package com.example.feature_timetable.presentation.timetable.di
 
 import androidx.fragment.app.Fragment
 import com.technokratos.common.di.scope.ScreenScope
-import com.example.feature_timetable.presentation.TimetableFragment
+import com.example.feature_timetable.presentation.timetable.TimetableFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 

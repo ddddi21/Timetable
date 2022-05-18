@@ -6,7 +6,7 @@
         android:title="@string/bottom_navigation_timetable_tab" />
 
     <item
-        android:id="@+id/addFragment"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings_tab"
         android:title="@string/bottom_navigation_settings_tab" />
 </menu>

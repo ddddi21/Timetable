@@ -1,4 +1,4 @@
-package com.example.feature_timetable.presentation
+package com.example.feature_timetable.presentation.timetable
 
 import android.animation.LayoutTransition
 import android.os.Bundle

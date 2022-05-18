@@ -1,7 +1,7 @@
 package com.technokratos.app.router
 
 import android.os.Bundle
-import com.example.feature_timetable.presentation.TimetableFragment
+import com.example.feature_timetable.presentation.timetable.TimetableFragment
 import com.technokratos.app.R
 import com.technokratos.app.NavControllerProvider
 import com.technokratos.auth.presentation.state.StudentChooseState

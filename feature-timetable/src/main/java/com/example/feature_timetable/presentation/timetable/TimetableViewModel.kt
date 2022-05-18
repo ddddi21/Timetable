@@ -1,4 +1,4 @@
-package com.example.feature_timetable.presentation
+package com.example.feature_timetable.presentation.timetable
 
 import com.example.feature_timetable.TimetableRouter
 import com.example.feature_timetable.domain.TimetableInteractor

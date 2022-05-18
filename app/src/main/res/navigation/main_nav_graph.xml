@@ -20,9 +20,16 @@
 
     <fragment
         android:id="@+id/timetableFragment"
-        android:name="com.example.feature_timetable.presentation.TimetableFragment"
+        android:name="com.example.feature_timetable.presentation.timetable.TimetableFragment"
         android:label="timetable_fragment"
         tools:layout="@layout/timetable_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.feature_timetable.presentation.setiings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment">
     </fragment>
 
 </navigation>
