@@ -45,7 +45,7 @@ class AuthViewModel(
         setUpCurrentList(setUpStateAfterBackClick())
     }
 
-    private fun setList() { // TODO(delete later)
+    private fun setList() {
         doCoroutineWork {
             val result = interactor.getUniversity().map {
                 it.map { university ->
