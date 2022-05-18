@@ -10,10 +10,12 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+        android:theme="@style/App.ToolbarStyle"
+        app:popupTheme="@style/App.ToolbarMenuItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleCentered="true"
+        app:menu="@menu/timetable_toolbar_menu"
         app:titleTextColor="@color/colorPrimary" />
 
     <androidx.core.widget.NestedScrollView

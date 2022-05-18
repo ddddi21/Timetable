@@ -1,6 +1,7 @@
 package com.example.feature_timetable.domain
 
 import com.example.feature_timetable.data.network.Lesson
+import com.example.feature_timetable.data.network.response.CurrentWeekResponse
 import com.technokratos.common.UserSPModel
 
 interface TimetableRepository {
@@ -11,5 +12,6 @@ interface TimetableRepository {
         isCurrentWeek: Boolean
     ): List<Lesson>
 
+    suspend fun getCurrentWeek(groupId: String): Boolean
     suspend fun getUserSettings(): UserSPModel
 }

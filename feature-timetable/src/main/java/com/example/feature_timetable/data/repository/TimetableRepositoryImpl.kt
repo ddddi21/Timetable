@@ -3,6 +3,7 @@ package com.example.feature_timetable.data.repository
 import com.example.feature_timetable.data.TimetableApi
 import com.example.feature_timetable.data.network.Lesson
 import com.example.feature_timetable.data.network.request.TimetableRequest
+import com.example.feature_timetable.data.network.response.CurrentWeekResponse
 import com.example.feature_timetable.domain.TimetableRepository
 import com.technokratos.common.UserSPModel
 import com.technokratos.common.local.sp.UserSharedPreferences
@@ -43,6 +44,12 @@ class TimetableRepositoryImpl @Inject constructor(
                     isChanged = response.isChanged
                 )
             }
+        }
+    }
+
+    override suspend fun getCurrentWeek(groupId: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            timetableApi.getCurrentWeek(groupId).isEvenWeek
         }
     }
 

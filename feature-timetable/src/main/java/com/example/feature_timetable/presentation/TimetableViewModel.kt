@@ -1,11 +1,9 @@
 package com.example.feature_timetable.presentation
 
-import android.util.Log
 import com.example.feature_timetable.TimetableRouter
 import com.example.feature_timetable.domain.TimetableInteractor
 import com.example.feature_timetable.presentation.mapper.mapLessonsToLessonItemModel
 import com.example.feature_timetable.presentation.model.LessonItemModel
-import com.technokratos.auth.presentation.state.StudentChooseState
 import com.technokratos.common.UserSPModel
 import com.technokratos.common.base.BaseViewModel
 import com.technokratos.common.base.adapter.ViewType
@@ -42,13 +40,39 @@ class TimetableViewModel(
         MutableSharedFlow<List<ViewType>>(1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val saturdayListFlow = _saturdayListFlow.asSharedFlow()
 
+    private val _userSettings =
+        MutableSharedFlow<UserSPModel>(1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+    private val _currentWeek = MutableSharedFlow<Boolean>()
+    val currentWeek = _currentWeek.asSharedFlow()
+
+
     init {
         checkUserSetting()
     }
 
-    private fun loadTimetable(userSettings: UserSPModel) {
+    fun loadTimetableByCurrentWeek() {
         doCoroutineWork {
+            val userSettings = _userSettings.replayCache.first()
+
             val result = interactor.getTimetableByCurrentWeek(
+                userSettings.group?.toInt()!!,
+                userSettings.courses?.toList()?.map { it.toInt() }
+            ).map { lessonsList -> lessonsList.map { mapLessonsToLessonItemModel(it) } }
+
+            if (result.isSuccess) {
+                result.getOrNull()?.let { lessonsList ->
+                    filterLessonsListByDay(lessonsList)
+                }
+            }
+        }
+    }
+
+    fun loadTimetableByNotCurrentWeek() {
+        doCoroutineWork {
+            val userSettings = _userSettings.replayCache.first()
+
+            val result = interactor.getTimetableByNotCurrentWeek(
                 userSettings.group?.toInt()!!,
                 userSettings.courses?.toList()?.map { it.toInt() }
             ).map { lessonsList -> lessonsList.map { mapLessonsToLessonItemModel(it) } }
@@ -67,8 +91,9 @@ class TimetableViewModel(
 
             if (result.isSuccess) {
                 result.getOrNull()?.let { settings ->
-                    Log.e("LLL", "checkUserSetting $result")
-                    loadTimetable(settings)
+                    setCurrentWeek(settings.group!!)
+                    _userSettings.emit(settings)
+                    loadTimetableByCurrentWeek()
                 }
             }
         }
@@ -82,6 +107,7 @@ class TimetableViewModel(
             val thursdayList = mutableListOf<ViewType>()
             val fridayList = mutableListOf<ViewType>()
             val saturdayList = mutableListOf<ViewType>()
+
             list.map { lesson ->
                 when (lesson.dayName) {
                     1 -> mondayList.add(lesson)
@@ -100,6 +126,18 @@ class TimetableViewModel(
             _thursdayListFlow.emit(thursdayList)
             _fridayListFlow.emit(fridayList)
             _saturdayListFlow.emit(saturdayList)
+        }
+    }
+
+    private fun setCurrentWeek(groupId: String) {
+        doCoroutineWork {
+            val result = interactor.getCurrentWeek(groupId)
+
+            if (result.isSuccess) {
+                result.getOrNull()?.let {
+                    _currentWeek.emit(it)
+                }
+            }
         }
     }
 }

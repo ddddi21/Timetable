@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -11,6 +12,7 @@
         <item name="colorError">@color/colorError</item>
         <item name="android:colorControlActivated">@color/blueAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionMenuTextAppearance">@style/App.ToolbarMenuItem</item>
     </style>
 
     <style name="Collection.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
@@ -58,5 +60,16 @@
         <item name="android:textColor">@color/common_pink</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+
+    <style name="App.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="App.ToolbarMenuItem" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
     </style>
 </resources>

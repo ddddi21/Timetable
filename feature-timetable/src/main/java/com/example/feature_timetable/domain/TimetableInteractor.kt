@@ -17,11 +17,14 @@ class TimetableInteractor @Inject constructor(
 
     suspend fun getTimetableByNotCurrentWeek(
         groupId: Int,
-        coursesIdList: List<Int>
+        coursesIdList: List<Int>?
     ): Result<List<Lesson>> =
         runCatching {
             timetableRepository.getTimetable(groupId, coursesIdList, false)
         }
+
+    suspend fun getCurrentWeek(groupId: String) =
+        runCatching { timetableRepository.getCurrentWeek(groupId) }
 
     suspend fun getUserSettings() = runCatching { timetableRepository.getUserSettings() }
 }

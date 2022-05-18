@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.marginBottom
-import androidx.core.view.updatePadding
-import com.example.feature_auth.databinding.FragmentStudentSetUpBinding
 import com.example.feature_timetable.R
 import com.example.feature_timetable.databinding.TimetableFragmentBinding
 import com.example.feature_timetable.di.TimetableFeatureComponent
@@ -31,6 +28,8 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
     private val thursdayListAdapter = BaseAdapter()
     private val fridayListAdapter = BaseAdapter()
     private val saturdayListAdapter = BaseAdapter()
+
+    private var currentWeek = false
 
     companion object {
         fun buildArgs(
@@ -57,8 +56,7 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
     override fun initViews() {
         initAdapters()
         initLayoutTransition()
-
-        viewBinding.toolbar.setTitle(R.string.timetable)
+        setUpToolbar()
     }
 
     override fun subscribe(viewModel: TimetableViewModel) {
@@ -79,6 +77,27 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
         }
         viewModel.saturdayListFlow.observe(viewLifecycleOwner) {
             saturdayListAdapter.update(it)
+        }
+
+        viewModel.currentWeek.observe(viewLifecycleOwner) {
+            viewBinding.toolbar.setTitle( setWeekTitle(it))
+            currentWeek = it
+        }
+    }
+
+    private fun setUpToolbar() {
+        setHasOptionsMenu(true)
+
+        viewBinding.toolbar.menu.findItem(R.id.currentWeek).setOnMenuItemClickListener {
+            viewModel.loadTimetableByCurrentWeek()
+            viewBinding.toolbar.setTitle(setWeekTitle(currentWeek))
+            false
+        }
+
+        viewBinding.toolbar.menu.findItem(R.id.notCurrentWeek).setOnMenuItemClickListener {
+            viewModel.loadTimetableByNotCurrentWeek()
+            viewBinding.toolbar.setTitle(setWeekTitle(!currentWeek))
+            false
         }
     }
 
@@ -102,7 +121,6 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
         viewBinding.saturdayRecyclerView.setDivider(R.drawable.list_divider)
     }
 
-
     private val studentChooseState by lazy {
         arguments?.getSerializable(STUDENT_CHOOSE_STATE_KEY) as StudentChooseState
     }
@@ -112,5 +130,13 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
         val lt = LayoutTransition()
         lt.disableTransitionType(LayoutTransition.DISAPPEARING)
         viewBinding.contentLayout.layoutTransition = lt
+    }
+
+
+    private fun setWeekTitle(isEvenWeek: Boolean): Int {
+        return when (isEvenWeek) {
+            true -> R.string.even_week
+            false -> R.string.odd_week
+        }
     }
 }

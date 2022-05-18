@@ -16,4 +16,11 @@
 
     <string name="timetable">Расписание</string>
 
+    <string name="current_week">Текущая неделя</string>
+    <string name="not_current_week">Не текущая неделя</string>
+
+    <string name="even_week">Четная неделя</string>
+    <string name="odd_week">Нечетная неделя</string>
+
+    <string name="dash">-</string>
 </resources>
