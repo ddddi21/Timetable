@@ -83,6 +83,15 @@
                 android:textSize="@dimen/text_size_12sp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/teacherTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_12sp" />
     </LinearLayout>
 
 </com.example.feature_timetable.presentation.itemView.LessonItemView>

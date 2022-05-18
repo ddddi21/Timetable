@@ -3,7 +3,9 @@ package com.example.feature_timetable.presentation.itemView
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
 import com.example.feature_auth.databinding.ItemStudentChooseBinding
+import com.example.feature_timetable.R
 import com.example.feature_timetable.databinding.ItemLessonBinding
 import com.example.feature_timetable.presentation.model.LessonItemModel
 import com.example.feature_timetable.presentation.model.getSubjectTypeAppearance
@@ -28,6 +30,11 @@ class LessonItemView @JvmOverloads constructor(
         subjectTextView.text = model.subject
         classroomTextView.text = changeIfNullOrEmpty(model.classroom)
         lessonTypeTextView.setText(model.type.getSubjectTypeAppearance())
+        teacherTextView.text = model.teacher
+        
+        if(model.isChanged) {
+            background = ContextCompat.getDrawable(context, R.drawable.edited_lesson)
+        }
 //        radioButton.setOnClickListener {
 //            model.onItemClicked?.invoke(model)
 //        }
