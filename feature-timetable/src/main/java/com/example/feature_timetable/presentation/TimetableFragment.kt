@@ -57,7 +57,6 @@ class TimetableFragment : BaseFragment<TimetableViewModel>() {
     override fun initViews() {
         initAdapters()
         initLayoutTransition()
-        viewModel.loadTimetable(studentChooseState)
 
         viewBinding.toolbar.setTitle(R.string.timetable)
     }

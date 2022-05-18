@@ -4,24 +4,27 @@ import com.example.feature_timetable.data.TimetableApi
 import com.example.feature_timetable.data.network.Lesson
 import com.example.feature_timetable.data.network.request.TimetableRequest
 import com.example.feature_timetable.domain.TimetableRepository
+import com.technokratos.common.UserSPModel
+import com.technokratos.common.local.sp.UserSharedPreferences
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TimetableRepositoryImpl @Inject constructor(
     private val timetableApi: TimetableApi,
-): TimetableRepository {
+    private val userSharedPreferences: UserSharedPreferences
+) : TimetableRepository {
 
     override suspend fun getTimetable(
         groupId: Int,
-        coursesIdList: List<Int>,
+        coursesIdList: List<Int>?,
         isCurrentWeek: Boolean
     ): List<Lesson> {
         return withContext(Dispatchers.IO) {
             timetableApi.getTimetable(
                 TimetableRequest(
                     groupId = groupId,
-                    coursesId = coursesIdList.ifEmpty { null },
+                    coursesId = coursesIdList,
                     isCurrentWeek = isCurrentWeek
                 )
             ).map { response ->
@@ -40,6 +43,18 @@ class TimetableRepositoryImpl @Inject constructor(
                     isChanged = response.isChanged
                 )
             }
+        }
+    }
+
+    override suspend fun getUserSettings(): UserSPModel {
+        return with(userSharedPreferences) {
+            UserSPModel(
+                group = group,
+                institute = institute,
+                university = university,
+                courses = courses,
+                block = block
+            )
         }
     }
 }

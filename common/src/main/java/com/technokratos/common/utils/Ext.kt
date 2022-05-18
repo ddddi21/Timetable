@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.onStart
 
+const val FIELD_IS_NOT_FILLED = "-"
+
 fun Activity.showShortToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
@@ -46,4 +48,9 @@ fun <T> MutableLiveData<T>.postValueIfNew(newValue: T) {
 
 fun Int?.isNullOrZero(): Boolean {
     return this == 0 || this == null
+}
+
+fun String?.changeIfNullOrEmpty(): String {
+    return if (this.isNullOrEmpty()) FIELD_IS_NOT_FILLED
+    else this
 }

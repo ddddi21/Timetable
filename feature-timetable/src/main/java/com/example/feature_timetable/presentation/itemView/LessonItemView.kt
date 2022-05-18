@@ -9,6 +9,8 @@ import com.example.feature_timetable.presentation.model.LessonItemModel
 import com.example.feature_timetable.presentation.model.getSubjectTypeAppearance
 import com.technokratos.auth.presentation.model.StudentItemModel
 import com.technokratos.common.base.adapter.Fillable
+import com.technokratos.common.utils.FIELD_IS_NOT_FILLED
+import com.technokratos.common.utils.changeIfNullOrEmpty
 
 class LessonItemView @JvmOverloads constructor(
     context: Context,
@@ -24,10 +26,15 @@ class LessonItemView @JvmOverloads constructor(
         startTimeTextView.text = model.startTime
         endTimeTextView.text = model.endTime
         subjectTextView.text = model.subject
-        classroomTextView.text = model.classroom
+        classroomTextView.text = changeIfNullOrEmpty(model.classroom)
         lessonTypeTextView.setText(model.type.getSubjectTypeAppearance())
 //        radioButton.setOnClickListener {
 //            model.onItemClicked?.invoke(model)
 //        }
     }
+}
+
+fun changeIfNullOrEmpty(string: String?): String {
+    return if (string.isNullOrEmpty()) FIELD_IS_NOT_FILLED
+    else string
 }

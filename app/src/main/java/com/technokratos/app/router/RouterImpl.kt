@@ -17,6 +17,10 @@ class RouterImpl @Inject constructor(
         navigateTo(R.id.action_splashFragment_to_authFragment)
     }
 
+    override fun toMain() {
+        navigateTo(R.id.timetableFragment)
+    }
+
     override fun navigateToMain(chooseState: StudentChooseState) {
         navigateTo(R.id.timetableFragment, TimetableFragment.buildArgs(chooseState))
     }

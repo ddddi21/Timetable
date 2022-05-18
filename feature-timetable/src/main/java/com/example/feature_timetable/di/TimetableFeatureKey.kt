@@ -1,3 +1,8 @@
 package com.example.feature_timetable.di
 
-interface TimetableFeatureKey
+import com.example.feature_timetable.domain.TimetableRepository
+
+interface TimetableFeatureKey {
+
+    fun provideTimetableRepository(): TimetableRepository
+}

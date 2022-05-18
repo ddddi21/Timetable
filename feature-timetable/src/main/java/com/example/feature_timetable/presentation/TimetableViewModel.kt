@@ -1,10 +1,12 @@
 package com.example.feature_timetable.presentation
 
+import android.util.Log
 import com.example.feature_timetable.TimetableRouter
 import com.example.feature_timetable.domain.TimetableInteractor
 import com.example.feature_timetable.presentation.mapper.mapLessonsToLessonItemModel
 import com.example.feature_timetable.presentation.model.LessonItemModel
 import com.technokratos.auth.presentation.state.StudentChooseState
+import com.technokratos.common.UserSPModel
 import com.technokratos.common.base.BaseViewModel
 import com.technokratos.common.base.adapter.ViewType
 import kotlinx.coroutines.channels.BufferOverflow
@@ -40,16 +42,33 @@ class TimetableViewModel(
         MutableSharedFlow<List<ViewType>>(1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val saturdayListFlow = _saturdayListFlow.asSharedFlow()
 
-    fun loadTimetable(studentChooseState: StudentChooseState) {
+    init {
+        checkUserSetting()
+    }
+
+    private fun loadTimetable(userSettings: UserSPModel) {
         doCoroutineWork {
             val result = interactor.getTimetableByCurrentWeek(
-                studentChooseState.selectedGroupId,
-                studentChooseState.selectedElectivesList
+                userSettings.group?.toInt()!!,
+                userSettings.courses?.toList()?.map { it.toInt() }
             ).map { lessonsList -> lessonsList.map { mapLessonsToLessonItemModel(it) } }
 
             if (result.isSuccess) {
                 result.getOrNull()?.let { lessonsList ->
                     filterLessonsListByDay(lessonsList)
+                }
+            }
+        }
+    }
+
+    private fun checkUserSetting() {
+        doCoroutineWork {
+            val result = interactor.getUserSettings()
+
+            if (result.isSuccess) {
+                result.getOrNull()?.let { settings ->
+                    Log.e("LLL", "checkUserSetting $result")
+                    loadTimetable(settings)
                 }
             }
         }
