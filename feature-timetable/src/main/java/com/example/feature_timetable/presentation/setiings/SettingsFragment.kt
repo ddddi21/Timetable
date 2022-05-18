@@ -35,6 +35,6 @@ class SettingsFragment: BaseFragment<SettingsViewModel>() {
     }
 
     override fun subscribe(viewModel: SettingsViewModel) {
-//        TODO("Not yet implemented")
+        viewBinding.clearData.setOnClickListener { viewModel.onClearData() }
     }
 }

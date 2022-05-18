@@ -13,5 +13,8 @@ interface TimetableRepository {
     ): List<Lesson>
 
     suspend fun getCurrentWeek(groupId: String): Boolean
+
     suspend fun getUserSettings(): UserSPModel
+
+    fun clearData()
 }

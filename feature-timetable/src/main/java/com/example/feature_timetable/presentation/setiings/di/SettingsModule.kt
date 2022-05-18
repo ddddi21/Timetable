@@ -3,6 +3,7 @@ package com.example.feature_timetable.presentation.setiings.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.feature_timetable.TimetableRouter
 import com.example.feature_timetable.domain.TimetableInteractor
 import com.example.feature_timetable.presentation.setiings.SettingsViewModel
 import com.technokratos.common.di.viewmodel.ViewModelKey
@@ -26,8 +27,9 @@ class SettingsModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     fun provideSettingsViewModelFromStore(
-        interactor: TimetableInteractor
+        interactor: TimetableInteractor,
+        router: TimetableRouter
     ): ViewModel {
-        return SettingsViewModel(interactor)
+        return SettingsViewModel(interactor, router)
     }
 }

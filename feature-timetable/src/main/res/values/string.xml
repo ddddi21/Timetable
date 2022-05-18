@@ -22,5 +22,6 @@
     <string name="even_week">Четная неделя</string>
     <string name="odd_week">Нечетная неделя</string>
 
+    <string name="сlear_data">Очистить данные</string>
     <string name="dash">-</string>
 </resources>

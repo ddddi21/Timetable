@@ -1,3 +1,6 @@
 package com.example.feature_timetable
 
-interface TimetableRouter
+interface TimetableRouter {
+
+    fun navigateToAuth()
+}

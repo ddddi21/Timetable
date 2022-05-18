@@ -29,6 +29,10 @@ class RouterImpl @Inject constructor(
         navigateTo(R.id.auth_nav_graph)
     }
 
+    override fun navigateToAuth() {
+        navigateTo(R.id.auth_nav_graph)
+    }
+
     override fun goToPreviousScreen() {
         navControllerProvider.get()?.popBackStack()
     }

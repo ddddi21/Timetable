@@ -125,7 +125,7 @@ fun ChipGroup.setChip(text: String) {
         chipStrokeColor = ContextCompat.getColorStateList(context, R.color.black)
         chipStrokeWidth = resources.getDimension(R.dimen.chip_stroke_width)
         setText(text)
-        setTextAppearanceResource(R.style.ChipTextStyle)
+        setTextAppearanceResource(R.style.CommonTextStyle)
         chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.white)
     }
     this.addView(chip)

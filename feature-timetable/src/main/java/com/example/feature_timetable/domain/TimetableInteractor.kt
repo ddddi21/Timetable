@@ -27,4 +27,6 @@ class TimetableInteractor @Inject constructor(
         runCatching { timetableRepository.getCurrentWeek(groupId) }
 
     suspend fun getUserSettings() = runCatching { timetableRepository.getUserSettings() }
+
+    fun clearData() = timetableRepository.clearData()
 }

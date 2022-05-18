@@ -64,4 +64,8 @@ class TimetableRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override fun clearData() {
+        userSharedPreferences.clear()
+    }
 }
